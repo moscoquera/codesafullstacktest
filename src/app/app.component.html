@@ -1,0 +1,81 @@
+<div class="container">
+  <div class="card dashboard" style="width: 100%">
+    <div class="card-header">
+      User Management
+    </div>
+    <div class="content">
+      <div class="card">
+        <div class="card-header">
+          Search
+        </div>
+
+        <div class="card-body">
+          <form ngForm [formGroup]="userSearchForm"  #userSearchFormElement method="post">
+
+            <div class="row">
+              <div class="col col-12">
+                <button class="btn btn-primary" type="submit" (click)="onSearchSubmit(userSearchForm.value)" >Search</button>
+                <button class="btn btn-warning" type="reset" (click)="onSearchClear(userSearchForm.value)" >Clear</button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="name">
+                Name
+              </label>
+              <input id="name" type="text" class="form-control" formControlName="name" required="required">
+
+            </div>
+
+
+          </form>
+
+        </div>
+
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          Users List
+        </div>
+
+        <div class="row buttons">
+          <div class="col col-12">
+            <button class="btn btn-primary" (click)="newUserMode()">New</button>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col col-12">
+            <table datatable [dtOptions]="dtUsersOptions" #dtUsers class="row-border hover">
+
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="card info">
+        <div class="card-header">
+          User Information
+        </div>
+        <div class="row buttons">
+          <div class="col col-12">
+            <button class="btn btn-primary" [disabled]="!(userForm.currentUserForm.valid && userFormStatus=='new')" (click)="submitUserForm()" >Guardar</button>
+            <button class="btn btn-primary" [disabled]="!(userForm.currentUserForm.valid && userFormStatus=='edit')" (click)="submitUserForm()">Editar</button>
+            <button class="btn btn-primary" [disabled]="userFormStatus!='edit'" (click)="deleteSelectedUser()">Eliminar</button>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col col-8 offset-2">
+            <app-user-form #userForm [mode]="userFormStatus" (submitted)="onFormSubmitted($event)"></app-user-form>
+          </div>
+        </div>
+
+
+      </div>
+
+    </div>
+  </div>
+</div>

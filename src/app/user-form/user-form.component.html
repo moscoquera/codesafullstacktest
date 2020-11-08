@@ -1,0 +1,48 @@
+<form ngForm [formGroup]="currentUserForm" (ngSubmit)="onSubmit(currentUserForm.value)" #userFormElement method="post">
+
+  <div class="form-group">
+    <label for="name">
+      Name
+    </label>
+    <input id="name" type="text" class="form-control" [ngClass]="{'is-invalid':currentUserForm.controls['name'].invalid}" formControlName="name" required="required">
+    <div class="invalid-feedback" *ngIf="currentUserForm.controls['name'].invalid && currentUserForm.controls['name'].errors.required">
+      Name is required.
+    </div>
+
+    <div class="invalid-feedback" *ngIf="currentUserForm.controls['name'].invalid && currentUserForm.controls['name'].errors.inuse">
+      Name is already in Use
+    </div>
+
+  </div>
+
+  <div class="form-group">
+    <label for="role" >
+      Role
+    </label>
+
+    <ng-select [items]="availableRoles"
+               [ngClass]="{'is-invalid':currentUserForm.controls['role'].invalid}"
+               bindLabel="name"
+               bindValue="id"
+               formControlName="role"
+               id="role"
+               required="required"
+               [compareWith]="roleComparator"
+    >
+    </ng-select>
+
+    <div class="invalid-feedback" *ngIf="currentUserForm.controls['name'].invalid && currentUserForm.controls['name'].errors.required">
+      Role is required.
+    </div>
+
+  </div>
+
+
+
+  <div class="form-check">
+    <input id="active" type="checkbox" [checked]="currentUserForm.active=='Y'" class="form-check-input" formControlName="active">
+    <label for="active">
+      Active
+    </label>
+  </div>
+</form>
